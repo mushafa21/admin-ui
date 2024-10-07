@@ -1,5 +1,5 @@
-import Button from "../elements/button";
-import Logo from "../elements/logo";
+import Button from "../Elements/Button";
+import Logo from "../Elements/Logo";
 const Authlayout = (props) => {
   const { children, title } = props;
 
