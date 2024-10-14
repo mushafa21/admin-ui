@@ -1,5 +1,5 @@
 import SignInPage from "./pages/signIn";
-import SignUpPage from "./pages/singUp";
+import SignUpPage from "./pages/signUp";
 
  const App = () => {
   return (
