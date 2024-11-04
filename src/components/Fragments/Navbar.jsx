@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Icon } from "../Elements/Icon";
 import Logo from "../Elements/Logo";
 
@@ -49,18 +49,23 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-defaultBlack text-special-bg2 sm:w-72 w-28 min-h-screen px-7 py-12 flex flex-col justify-between">
+    <div className="bg-defaultBlack">
+  <nav className="sticky top-0 text-special-bg2 sm:w-72 w-28 min-h-screen px-7 py-12 flex flex-col justify-between">
       <div>
-        <div className="flex justify-center mb-10">
-            <Logo variant="text-white text-sm sm:text-2xl"/>
-        </div>
+        <NavLink to="/" className="flex justify-center mb-10">
+          <Logo variant="text-white text-sm sm:text-2xl" />
+        </NavLink>
         {menus.map((menu) => (
-          <Link to={menu.link}>
-            <div className="flex hover:bg-special-bg3 hover:text-white px-4 py-3 rounded-md">
+          <NavLink key={menu.id} to={menu.link}
+          className={({ isActive }) =>
+            isActive
+              ? "flex bg-primary font-bold text-white px-4 py-3 rounded-md"
+              : "flex hover:bg-special-bg3 hover:text-white px-4 py-3 rounded-md"
+          }>
+
               <div className="mx-auto sm:mx-0">{menu.icon}</div>
               <div className="ms-3 hidden sm:block">{menu.label}</div>
-            </div>
-          </Link>
+          </NavLink>
         ))}
       </div>
       <div className="sticky bottom-12">
@@ -80,12 +85,15 @@ const Navbar = () => {
           <div className="hidden sm:block">
             <div className="text-white font-bold">Username</div>
             <div className="text-xs">View Profile</div>
-            
           </div>
-          <div className="hidden sm:block self-center justify-self-end"><Icon.KebabMenu/></div>
+          <div className="hidden sm:block self-center justify-self-end">
+            <Icon.KebabMenu />
+          </div>
         </div>
       </div>
     </nav>
+    </div>
+  
   );
 };
 

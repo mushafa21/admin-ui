@@ -1,10 +1,11 @@
 import React from "react";
 
-const Card = () => {
+const Card = (props) => {
+  const { title, description } = props;
   return (
     <>
-      <div className="text-lg text-gray-02 mb-2">Title1</div>
-      <div className="bg-white rounded-lg px-6 py-5 shadow-xl">widget 1</div>
+      <div className="text-lg text-gray-02 mb-2">{title}</div>
+      <div className="bg-white rounded-lg px-6 py-5 shadow-xl">{description}</div>
     </>
   );
 };
