@@ -426,7 +426,6 @@ const EditIcon = () => (
 export const Icon = {
   Overview: OverviewIcon,
   Balance: BalanceIcon,
-  Transaction: TransactionIcon,
   Bills: BillsIcon,
   Expenses: ExpensesIcon,
   Goals: GoalsIcon,

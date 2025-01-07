@@ -1,7 +1,51 @@
-import bills from "../../../data/bills";
 import Card from "../../Elements/Card";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const CardBill = () => {
+    const [bills,setBills] = useState([]);
+    const [isLoading,setLoading] = useState(false);
+
+    const getData = async () => {
+        setLoading(true);
+        try {
+          const refreshToken = localStorage.getItem("refreshToken");
+    
+          const response = await axios.get(
+            "https://jwt-auth-eight-neon.vercel.app/bills",
+            {
+              headers: {
+                Authorization: `Bearer ${refreshToken}`,
+              },
+            }
+          );
+    
+          console.log(response);
+          setBills(response.data.data);
+        } catch (error) {
+          if (error.response) {
+            if (error.response.status == 401) {
+              setOpen(true);
+              setMsg({
+                severity: "error",
+                desc: "Session Has Expired. Please Login.",
+              });
+          
+              setIsLoggedIn(false);
+              setName("");
+          
+              localStorage.removeItem("refreshToken");
+              navigate("/login");
+            } else {
+              console.log(error.response);
+            }
+          }
+        }
+        setLoading(false);
+      };
+
     const billCard = bills.map((bill) => (
         <div key={bill.id} className="lg:flex justify-between pt-3 pb-3">
             <div className="flex">
@@ -24,10 +68,13 @@ const CardBill = () => {
         </div>
     ));
 
+    useEffect(() => {
+        getData();
+      }, []);
     return (
         <Card
             title="Upcoming Bill"
-            description={
+            description={ isLoading ? <CircularProgress color="inherit" /> :
                 <div className="h-full flex flex-col justify-around">
                     {billCard}
                 </div>
